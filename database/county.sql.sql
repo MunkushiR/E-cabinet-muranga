@@ -426,14 +426,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `personal_number`, `password`, `type`) VALUES
-(1, 'Kevin Bengi', '543754838', 'IEC61508', 1),
-(7, 'Kevin Wekesa', '67464498', 'IEC61508', 1),
-(10, 'Stephen Leto', '6868868', '78457599', 2),
-(11, 'peter Njuguna', '79978586', 'Perfection@2024', 1),
-(21, 'Kelvin Wafula', '667786257', 'STEVTO123', 2),
-(25, 'DARRYL W HONDORP', '675857686', 'IEC61508', 3),
+(1, 'Benard Kariuki', '12345678', 'countysec', 1),
+(7, 'winie Kuria', '20200462759', '26425599', 2),
+(10, 'peter njoroge', '12345678', 'secretary', 2),
+(11, 'peter Njuguna', '79978586', 'admin01', 1),
+(21, 'Kelvin Wafula', '667786257', 'Steve02', 2),
 (26, 'Frank', '556644683', '36684487492', 3),
-(27, 'Naserian', '78987467', '7875657', 1),
+(27, 'Naserian', '37027741', '37027741', 1),
 (28, 'Eunice Kiruto', '35368991', '123456', 1);
 
 --
