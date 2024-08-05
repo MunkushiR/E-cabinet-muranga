@@ -1,8 +1,12 @@
 <?php
 include('db_connect.php');
 
+// Check if session is not started, then start it
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Get the current user's position
-session_start(); // Start session to access session variables
 $currentUserId = $_SESSION['personal_number'];
 $positionQuery = $conn->query("
     SELECT position 
