@@ -132,8 +132,7 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `name`, `path`, `type`, `uploaded_at`) VALUES
-(2, 'minutes of the cabinet meeting.pdf', '66a2caafcf7b51.11428408.pdf', 'application/pdf', '2024-07-25 21:59:11'),
-(3, 'MINUTES OF THE CABINET MEETING 28TH FEB.pdf', '66ab2fa52b6387.45098804.pdf', 'application/pdf', '2024-08-01 06:48:05');
+
 
 -- --------------------------------------------------------
 
@@ -289,11 +288,7 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`user_id`, `subject`, `message`, `from`, `date`, `is_read`) VALUES
-(1, 'Project Assistance', 'please assist me with this project on password reset using email', 'Kevin Bengi', '2021-06-28 00:00:00', 0),
-(2, 'Project Assistance', 'I will be happy to assist you. I will create a link so that we can work on it together tomorrow', ' Isaiah Wainaina', '2021-06-28 00:00:00', 0),
-(3, 'Project Assistance', 'thanks. i will be waiting', 'Kevin Bengi', '2021-06-28 00:00:00', 0),
-(4, 'project assistance', 'noted', 'kevin', '2024-06-03 00:00:00', 0),
-(5, 'project assistance', 'noted', 'kevin', '2024-07-21 00:00:00', 0);
+
 
 -- --------------------------------------------------------
 
