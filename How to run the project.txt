@@ -1,0 +1,37 @@
+Free Download Source Code "Payroll Management System"
+
+FIRST Download
+
+1.XAMPP
+
+2."TEXT EDITOR" Visual Studio Code OR NOTEPAD++ OR SUBLIME TEXT 3 / ETC.
+
+3" WKUC_Payroll_Management_And_Inventory_System"
+
+4. Download the zip file/ download winrar
+
+5. Extract the file and copy "WKUC_Payroll_Management_And_Inventory_System" folder
+
+6.Paste inside root directory/ where you install xammp local disk C: drive D: drive E: paste: (for xampp/htdocs, 
+
+7. Open PHPMyAdmin (http://localhost/phpmyadmin)
+
+8. Create a database with name payroll
+
+6. Import payroll.sql file(given inside the zip package in database file folder)
+
+7.Run the script http://localhost/payroll/main.php
+
+
+**LOGIN DETAILS** 
+
+in the main page Click login and choose either to login as an employee or as an Admin
+EMPLOYEE
+1. On the Login page click register and fill in your details
+
+Admin
+Use the following details to login into the Admin page
+username: admin
+password: IEC61508
+
+bengivirtualrealityc@2021
