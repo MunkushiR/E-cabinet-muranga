@@ -2,6 +2,7 @@
 include('db_connect.php');
 
 // Get the current user's position
+session_start(); // Start session to access session variables
 $currentUserId = $_SESSION['personal_number'];
 $positionQuery = $conn->query("
     SELECT position 
@@ -70,6 +71,7 @@ while ($meeting = $meetingsQuery->fetch_assoc()) {
                                 <th class="text-center">Date</th>
                                 <th class="text-center">Time</th>
                                 <th class="text-center">Location</th>
+                                <th class="text-center">Agenda</th>
                                 <th class="text-center">Minutes of the Meeting</th>
                             </tr>
                         </thead>
@@ -90,6 +92,7 @@ while ($meeting = $meetingsQuery->fetch_assoc()) {
                                         ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($meeting['location']); ?></td>
+                                    <td><?php echo htmlspecialchars($meeting['agenda']); ?></td> <!-- Display the agenda -->
                                     <td>
                                         <?php if (!empty($meeting['file'])): ?>
                                             <a href="<?php echo htmlspecialchars($meeting['file']); ?>" target="_blank">View/Download Document</a>
