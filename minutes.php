@@ -21,7 +21,7 @@
 					<th class="text-center">Date</th>
 					<th class="text-center">Time</th>
                     <th class="text-center">Location</th>
-                    <th class="text-center">Those to attend</th>
+                    <th class="text-center">members</th>
 					<th class="text-center">Agenda</th>
 
 					<th class="text-center">Minutes of the meeting</th>

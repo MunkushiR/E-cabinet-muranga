@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2024 at 01:45 PM
+-- Generation Time: Aug 05, 2024 at 05:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -185,6 +185,13 @@ CREATE TABLE `events` (
   `recurring` tinyint(1) NOT NULL,
   `notification_sent` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `start`, `end`, `all_day`, `location`, `recurring`, `notification_sent`) VALUES
+(7, 'ecabinet system presentation', '2024-08-05 17:47:00', '2024-08-05 17:48:00', 0, 'confrence hall', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -431,15 +438,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `personal_number`, `password`, `type`) VALUES
-(1, 'Kevin Bengi', '543754838', 'IEC61508', 1),
-(7, 'Kevin Wekesa', '67464498', 'IEC61508', 1),
-(10, 'Stephen Leto', '6868868', '78457599', 2),
-(11, 'peter Njuguna', '79978586', 'Perfection@2024', 1),
-(21, 'Kelvin Wafula', '667786257', 'STEVTO123', 2),
-(25, 'DARRYL W HONDORP', '675857686', 'IEC61508', 3),
-(26, 'Frank', '556644683', '36684487492', 3),
-(27, 'Naserian', '78987467', '7875657', 1),
-(28, 'Eunice Kiruto', '35368991', '123456', 1);
+(1, 'Benard Kariuki', 'County Sec', 'Benardk', 1),
+(7, 'winnie Kuria', '20200462759', 'Winniek', 3),
+(10, 'Dorcas', 'Dorcas', 'Dorcas', 3),
+(21, 'Secretary', 'Secretary', 'Secretary', 3),
+(25, 'Council Secretary', 'council sec', 'council sec', 3),
+(26, 'Admin', 'Admin', 'Admin', 1),
+(27, 'Naserian', 'Naserian', 'Naserian', 1),
+(28, 'Meshack Kipkorir', 'Meshack', 'Meshack', 1);
 
 --
 -- Indexes for dumped tables
@@ -579,7 +585,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `meetings`
@@ -603,7 +609,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `minutes`
 --
 ALTER TABLE `minutes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `notifications`
