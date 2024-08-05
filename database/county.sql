@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2024 at 07:32 PM
+-- Generation Time: Aug 05, 2024 at 01:45 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,16 +34,6 @@ CREATE TABLE `attendance` (
   `datetime_log` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `attendance`
---
-
-INSERT INTO `attendance` (`id`, `employee_id`, `log_type`, `datetime_log`, `date_updated`) VALUES
-(10, 9, 1, '2020-09-16 08:00:00', '2020-09-29 16:16:57'),
-(11, 9, 2, '2020-09-16 12:00:00', '2020-09-29 16:16:57'),
-(12, 9, 3, '2020-09-16 13:00:00', '2020-09-29 16:16:57'),
-(16, 9, 4, '2020-09-16 17:00:00', '2020-09-29 16:16:57');
 
 -- --------------------------------------------------------
 
@@ -88,7 +78,12 @@ INSERT INTO `department` (`id`, `name`) VALUES
 (1, 'County Executive Committee(Cabinet) Meeting'),
 (2, 'Department Evaluation Meetings'),
 (3, 'Interdepartmental Meeting'),
-(4, 'Budget and economic council');
+(4, 'Budget and economic council'),
+(10, 'COC meeting'),
+(11, 'CEC Meeting'),
+(12, 'Board of Directors Meeting'),
+(13, 'Monthly review meeting'),
+(14, 'Hospital Board Meeting');
 
 -- --------------------------------------------------------
 
@@ -127,13 +122,6 @@ CREATE TABLE `documents` (
   `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `documents`
---
-
-INSERT INTO `documents` (`id`, `name`, `path`, `type`, `uploaded_at`) VALUES
-
-
 -- --------------------------------------------------------
 
 --
@@ -157,11 +145,29 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `firstname`, `lastname`, `personal_number`, `position`, `work_email`, `phonenumber`, `national_id`, `meeting_types`) VALUES
-(9, 'Pius Njuguna', 'Macharia', '2345167', 'Chief of staff', 'kiptoke@ueab.ac.ke', '0789467833', 223435767, ''),
-(10, 'Janet ', 'Naliaka', 'WKUC29', 'Deputy Governor', 'janetnaliaka@wkuc.com', '0707235678', 23457889, ''),
-(11, 'Isaac', 'Wainaina', 'IWA3467', 'Director(s) of the department', 'wainainaisaiah@gmail.com', '0789563415', 345799689, ''),
-(32, 'John', 'Marande', 'MJ12345', 'Chief officer of the Department', 'marandej@wku.adventist.org', '734572018', 0, ''),
-(36, 'H.E Dr Irungu ', 'Kang\'ata', '20200462759', 'Governor', 'irungu@muranga.com', '0783736388', 26425599, '');
+(36, 'H.E Dr Irungu ', 'Kang\'ata', 'Governor', 'Governor', 'governor@muranga.go.ke', '0700000000', 1, ''),
+(37, 'H.E Stephene', 'Munaina', 'Deputy Governor', 'Deputy Governor', 'deputygovernor@gmai.com', '0700000000', 2, ''),
+(38, 'county', ' secretary', 'county sec', 'county secretary', ' countysecreatry@gmail.com', '0700000000', 3, ''),
+(39, 'Deputy ', 'County Secretary', 'dep county sec', 'Deputy County Secretary', 'depcountysec@gmail.com', '0700000000', 4, ''),
+(40, 'CECMs', 'CECMs', 'CECMs', 'CECMs', 'CECMs@gmail.com', '0700000000', 5, ''),
+(41, 'County ', 'Attorney', 'County Attorney', 'County Attorney', 'CountyAttorney@gmail.com', '0700000000', 6, ''),
+(42, 'Chief ', 'Staff', 'Chief of Staff', 'Chief of Staff', 'ChieffStaff@gmail.com', '0700000000', 7, ''),
+(43, 'Secretary', ' Support', 'sec support', 'Secretary Support', 'SecretarySupport@gmail.com', '0700000000', 8, ''),
+(44, 'Directors ', 'Directors ', 'Directors ', 'Directors ', 'Directors@gmail,com', '0700000000', 9, ''),
+(45, 'Departmental', ' Accountant', 'Departmental Ac', 'Departmental Accountant', 'Departmentalacc@gmai.com', '0700000000', 10, ''),
+(46, 'Medd ', 'supp', 'Medd supp', 'Medd supp', 'Meddsupp@gmail.com', '0700000000', 11, ''),
+(47, 'Subcounty ', 'Administrator', 'subcounty admn', 'Subcounty Administrator', 'sucountyadm@gmail.com', '0700000000', 12, ''),
+(48, 'Procurement ', 'Officers', 'Procurement Off', 'Procurement Officers', 'Procurementofficers@gmail.com', '0700000000', 13, ''),
+(49, 'Council ', 'Secretariat', 'Council Sec', 'Council Secretariat', 'Councilsecretariat@gmail.com', '0700000000', 14, ''),
+(50, 'members of the', ' Board of directors meeting', 'member BOD', 'members of the Board of directors meeting', 'member BOD@gmail.com', '0700000000', 15, ''),
+(51, 'members of the CEC meeting', ' CEC meeting', 'member CEC', 'members of the CEC meeting', 'member CEC@gmail.com', '0700000000', 16, ''),
+(52, 'Members of the', 'county Executive(Cabinet) meet', 'member cabinet', 'Members of the county Executive(Cabinet) meeting', 'member cabinet@gmail.com', '0700000000', 17, ''),
+(53, 'Members of the ', 'Departmental meetings', 'member Depart', 'Members of the Departmental meetings', 'member Depart@gmail.com', '0700000000', 18, ''),
+(54, 'members of', ' interdepartmental meeting', 'member interdep', 'members of interdepartmental meeting', 'member interdepart@gmail.com', '0700000000', 19, ''),
+(55, 'members of the ', 'budget and economic council me', 'member BEC', 'members of the budget and economic council meeting', 'member BEC@gmail.com', '0700000000', 20, ''),
+(56, 'members of the ', 'COC meeting', 'member COC', 'members of the COC meeting', 'membbercoc@gmai.com', '0700000000', 21, ''),
+(57, 'members of the', 'monthly review meeting', 'member MRM', 'members of the monthly review meeting', 'membermrm@gmail.com', '0700000000', 22, ''),
+(58, 'members of the', ' hospital board meeting', 'member HBM', 'members of the hospital board meeting', 'memberhbm@gmail.com', '0700000000', 23, '');
 
 -- --------------------------------------------------------
 
@@ -179,18 +185,6 @@ CREATE TABLE `events` (
   `recurring` tinyint(1) NOT NULL,
   `notification_sent` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`id`, `title`, `start`, `end`, `all_day`, `location`, `recurring`, `notification_sent`) VALUES
-(1, 'Board mee', '2024-06-02 09:57:00', '2024-06-02 10:57:00', 0, 'Bungoma', 1, 0),
-(2, 'CEE meeting', '2024-06-02 10:10:00', '2024-06-02 02:15:00', 1, 'Kisumu', 0, 0),
-(3, 'Assembly', '2024-06-13 08:10:00', '2024-06-02 09:10:00', 0, 'Kisumu', 1, 0),
-(4, 'Conference meeting', '2024-06-13 11:30:00', '2024-06-02 12:30:00', 0, 'Conference hall', 1, 0),
-(5, 'Budget planning', '2024-06-06 08:00:00', '2024-06-06 11:00:00', 0, 'Conference hall', 0, 0),
-(6, 'Board meeting', '2024-07-29 09:03:00', '2024-07-29 11:05:00', 0, 'Conference hall', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -213,19 +207,6 @@ CREATE TABLE `meetings` (
   `file` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `meetings`
---
-
-INSERT INTO `meetings` (`id`, `type`, `title`, `date`, `time`, `present_members`, `agenda`, `absent`, `attendees`, `content`, `signed_by`, `file`) VALUES
-(9, 'Budget and economic council', 'Meeting held to discuss and come up with the budget for the year 2024', '2024-06-07', '09:00:00', 'Paul Ng\'anga\r\nPhilip Musau', '1. Interviews2. Awards and appreciations', 'none', 'all governor working committee members', 'come with departmental plans', 'Paul Francis', 'downloads/MINUTES OF THE CABINET MEETING 28TH FEB.pdf'),
-(13, 'Budget and economic council', 'Meeting held to discuss and come up with the budget for the year 2024', '2024-06-14', '00:00:00', '', 'discuss the work plan and come up with a budget', 'none', 'all members of the committee present', 'governors working committee for the year 2024', 'Philip Musau', 'minutes_7.pdf'),
-(17, 'Budget and economic council', '', '2024-08-01', '00:00:00', '', 'Checking the progress of each department and presenting their plan for the whole year', 'none', 'all members were present', 'departmental meeting', '', ''),
-(21, 'Governors working committee', '', '2024-07-30', '00:00:00', '', 'Checking the progress of each department and presenting their plan for the whole year', 'none', 'all members were present', 'departmental meeting', '', ''),
-(22, 'Governors working committee', '', '2024-07-30', '00:00:00', '', 'Checking the progress of each department and presenting their plan for the whole year', 'none', 'all members were present', 'departmental meeting', '', ''),
-(23, 'Governors working committee', '', '2024-07-30', '00:00:00', '', 'Checking the progress of each department and presenting their plan for the whole year', 'none', 'all members were present', 'departmental meeting', '', ''),
-(24, 'Budget and economic council', '', '2024-07-20', '00:00:00', '', 'Checking the progress of each department and presenting their plan for the whole year', 'none', 'all members were present', 'departmental meeting', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -244,29 +225,85 @@ CREATE TABLE `members` (
 
 INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (1, 'Governor\r\n', 1),
-(2, 'Governor\r\n\r\n', 2),
-(3, 'Deputy Governor\r\n', 1),
-(4, 'County Secretary', 1),
-(5, 'Deputy county secretary', 1),
-(6, 'All CECMs', 1),
-(7, 'County Attorney', 1),
-(8, 'Chief of staff', 1),
-(9, 'Secretariat Support', 1),
-(10, 'Deputy Governor', 2),
-(11, 'County Secretary/Deputy County secretary', 2),
-(12, 'CECM of the department', 2),
-(13, 'Chief officer(s) of the department', 2),
-(14, 'Director(s) of the department', 2),
-(15, 'Secreatriat support', 2),
-(16, 'Governor', 3),
-(17, 'Governor', 4),
-(18, 'Deputy Governor', 3),
-(19, 'Deputy Governor', 4),
-(20, 'County Secretary', 3),
-(21, 'Deputy County Secretary', 3),
-(22, 'All CECMs', 4),
-(23, 'Council Members', 4),
-(24, 'Council Secretariat', 4);
+(25, 'Deputy Governor', 1),
+(26, 'county secretary', 1),
+(27, 'Deputy County Secretary', 1),
+(28, 'CECMs', 1),
+(29, 'County Attorney', 1),
+(30, 'Chief of Staff', 1),
+(31, ' Secretary Support', 1),
+(32, 'Members of the county Executive(Cabinet) meeting', 1),
+(33, 'Governor', 2),
+(34, 'Deputy Governor', 2),
+(35, 'county secretary', 2),
+(36, 'Deputy County Secretary', 2),
+(37, 'CECMs', 2),
+(38, 'County Attorney', 2),
+(39, 'Chief of Staff', 2),
+(40, 'Secretary Support', 2),
+(41, 'Directors ', 2),
+(42, 'Members of the Departmental meetings', 2),
+(43, 'Governor', 3),
+(44, 'Deputy Governor', 3),
+(45, 'county secretary', 3),
+(46, 'Deputy County Secretary', 3),
+(47, 'CECMs', 3),
+(48, 'County Attorney', 3),
+(49, 'Chief of Staff', 3),
+(50, 'Secretary Support', 3),
+(51, 'Directors ', 3),
+(52, 'Departmental Accountant', 3),
+(53, 'Medd supp', 3),
+(54, 'Subcounty Administrator', 3),
+(55, 'Procurement Officers', 3),
+(56, 'members of interdepartmental meeting', 3),
+(57, 'Governor', 4),
+(58, 'Deputy Governor', 4),
+(59, 'CECMs', 4),
+(60, 'Council Secretariat', 4),
+(61, 'members of the budget and economic council meeting', 4),
+(62, 'Governor', 10),
+(63, 'Deputy Governor', 10),
+(64, 'county secretary', 10),
+(65, 'Deputy County Secretary', 10),
+(66, 'Chief of Staff', 10),
+(67, 'County Attorney', 10),
+(68, 'members of the COC meeting', 10),
+(69, 'Governor', 11),
+(70, 'Deputy Governor', 11),
+(71, 'county secretary', 11),
+(72, 'Deputy County Secretary', 11),
+(73, 'Chief of Staff', 11),
+(74, 'Secretary Support', 11),
+(75, 'members of the CEC meeting', 11),
+(76, 'Governor', 12),
+(77, 'Deputy Governor', 12),
+(79, 'county secretary', 12),
+(80, 'Deputy County Secretary', 12),
+(81, 'CECMs', 12),
+(82, 'County Attorney', 12),
+(83, 'Chief of Staff', 12),
+(84, 'Secretary Support', 12),
+(85, 'Directors', 12),
+(86, 'members of the Board of directors meeting', 12),
+(87, 'Governor', 13),
+(88, 'Deputy Governor', 13),
+(89, 'county secretary', 13),
+(90, 'CECMs', 13),
+(91, 'County Attorney', 13),
+(92, 'Chief of Staff', 13),
+(93, 'Secretary Support', 13),
+(94, 'members of the monthly review meeting', 13),
+(95, 'Governor', 14),
+(96, 'Deputy Governor', 14),
+(97, 'county secretary', 14),
+(98, 'Deputy County Secretary', 14),
+(99, 'CECMs', 14),
+(100, 'County Attorney', 14),
+(101, 'Chief of Staff', 14),
+(102, 'Secretary Support', 14),
+(103, 'Medd supp', 14),
+(104, 'members of the hospital board meeting', 14);
 
 -- --------------------------------------------------------
 
@@ -283,13 +320,6 @@ CREATE TABLE `message` (
   `is_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `message`
---
-
-INSERT INTO `message` (`user_id`, `subject`, `message`, `from`, `date`, `is_read`) VALUES
-
-
 -- --------------------------------------------------------
 
 --
@@ -303,20 +333,9 @@ CREATE TABLE `minutes` (
   `location` text NOT NULL,
   `time` time(6) NOT NULL,
   `attendees` varchar(100) NOT NULL,
+  `agenda` varchar(250) NOT NULL,
   `file` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `minutes`
---
-
-INSERT INTO `minutes` (`id`, `type`, `date`, `location`, `time`, `attendees`, `file`) VALUES
-(6, 'Budget and economic council', '2024-08-02', 'Conference hall', '11:25:00.000000', 'CECM of the department, Chief of staff, Chief officer(s) of the department, Council Members, Council', ''),
-(8, 'County Executive Committee(Cabinet) Meeting', '2024-08-09', 'Governors board room', '11:50:00.000000', 'CECM of the department, Governor\r\n, Secretariat Support', ''),
-(9, 'Department Evaluation Meetings', '2024-08-16', 'Governors board room', '00:00:00.000000', 'Chief of staff, County Attorney, Deputy county secretary, Deputy Governor, Governor\r\n\r\n', ''),
-(18, 'Department Evaluation Meetings', '2024-08-09', 'Governors board room', '12:00:00.000000', 'All CECMs, CECM of the department, Chief of staff, Chief officer(s) of the department, Council Membe', ''),
-(19, 'Department Evaluation Meetings', '2024-08-03', 'Governors board room', '07:28:00.000000', 'Deputy Governor, Governor\r\n', 'downloads/minutes_1.pdf'),
-(21, 'Budget and economic council', '2024-08-09', 'Conference hall', '12:00:00.000000', 'CECM of the department, Chief of staff', 'downloads/MINUTES OF THE CABINET MEETING 28TH FEB.pdf');
 
 -- --------------------------------------------------------
 
@@ -331,15 +350,6 @@ CREATE TABLE `notifications` (
   `From` varchar(30) NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`Id`, `Subject`, `Message`, `From`, `Date`) VALUES
-(2, 'Employees Work From Home', 'You are hereby notified that the work from home period has been extended up to June 16th', '', '0000-00-00'),
-(4, '', '', '', '0000-00-00'),
-(5, 'birthday celebration', 'we are celebrating the birthday of our manager Mr. Peter. you are all invited', 'Welfare department', '2024-07-21');
 
 -- --------------------------------------------------------
 
@@ -421,13 +431,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `personal_number`, `password`, `type`) VALUES
-(1, 'Benard Kariuki', '12345678', 'countysec', 1),
-(7, 'winie Kuria', '20200462759', '26425599', 2),
-(10, 'peter njoroge', '12345678', 'secretary', 2),
-(11, 'peter Njuguna', '79978586', 'admin01', 1),
-(21, 'Kelvin Wafula', '667786257', 'Steve02', 2),
+(1, 'Kevin Bengi', '543754838', 'IEC61508', 1),
+(7, 'Kevin Wekesa', '67464498', 'IEC61508', 1),
+(10, 'Stephen Leto', '6868868', '78457599', 2),
+(11, 'peter Njuguna', '79978586', 'Perfection@2024', 1),
+(21, 'Kelvin Wafula', '667786257', 'STEVTO123', 2),
+(25, 'DARRYL W HONDORP', '675857686', 'IEC61508', 3),
 (26, 'Frank', '556644683', '36684487492', 3),
-(27, 'Naserian', '37027741', '37027741', 1),
+(27, 'Naserian', '78987467', '7875657', 1),
 (28, 'Eunice Kiruto', '35368991', '123456', 1);
 
 --
@@ -544,7 +555,7 @@ ALTER TABLE `cabinets`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `departmental`
@@ -562,7 +573,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -580,7 +591,7 @@ ALTER TABLE `meetings`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `message`
