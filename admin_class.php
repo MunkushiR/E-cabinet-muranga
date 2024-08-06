@@ -269,7 +269,7 @@ Class Action {
 		$location = isset($_POST['location']) ? $_POST['location'] : '';
 		$time = isset($_POST['time']) ? $_POST['time'] : '';
 		$attendees = isset($_POST['attendees']) ? $_POST['attendees'] : [];
-		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : [];
+		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : '';
 	
 		$id = isset($_POST['id']) ? $_POST['id'] : null;
 	
@@ -331,6 +331,7 @@ Class Action {
 			return 0;
 		}
 	}
+	
 	
 	function delete_minutes(){
 		extract($_POST);

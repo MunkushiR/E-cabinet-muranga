@@ -22,11 +22,11 @@ if(isset($_GET['id'])){
 </head>
 <body>
 <div class="container-fluid">
-    <form action="" id="manage-meeting" method="POST">
+    <form action="" id="manage-meeting" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo isset($meta['id']) ? $meta['id'] : '' ?>">
         <div class="form-group">
             <label for="type" class="control-label">Meeting Type</label>
-            <select class="custom-select browser-default select2" name="type" id="type">
+            <select class="custom-select browser-default select2" name="type" id="type" required>
                 <?php
                 $types = $conn->query("SELECT DISTINCT name FROM department ORDER BY name ASC");
                 while ($typeRow = $types->fetch_assoc()) {
@@ -37,46 +37,46 @@ if(isset($_GET['id'])){
             </select>
         </div>
         <div class="form-group">
-                <label for="title">Meeting title</label>
-                <input type="text" name="title" id="title" class="form-control" value="<?php echo isset($meta['title']) ? htmlspecialchars($meta['title']) : ''; ?>" required>
-            </div>
+            <label for="title">Meeting title</label>
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo isset($meta['title']) ? htmlspecialchars($meta['title']) : ''; ?>" required>
+        </div>
         <div class="form-group">
             <label for="date">Date</label>
             <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($meta['date']) ? $meta['date'] : '' ?>" required>
         </div>
         <div class="form-group">
-    <label for="time">Time</label>
-    <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($meta['time']) ? date('H:i', strtotime($meta['time'])) : ''; ?>" required>
-</div>
- <div class="form-group">
-<label for="present_members">Members Present:</label>
-    <textarea name="present_members" id="present_members" class="form-control" rows ="3" required><?php echo isset($meta['present_members']) ? htmlspecialchars($meta['present_members']) : ''; ?></textarea>
-</div>
-
-    <div class="form-group">
+            <label for="time">Time</label>
+            <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($meta['time']) ? date('H:i', strtotime($meta['time'])) : ''; ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="present_members">Members Present:</label>
+            <textarea name="present_members" id="present_members" class="form-control" rows="3" required><?php echo isset($meta['present_members']) ? htmlspecialchars($meta['present_members']) : ''; ?></textarea>
+        </div>
+        <div class="form-group">
             <label for="attendees">In attendance</label>
             <textarea name="attendees" id="attendees" class="form-control" rows="3" required><?php echo isset($meta['attendees']) ? htmlspecialchars($meta['attendees']) : ''; ?></textarea>
         </div>
         <div class="form-group">
             <label for="absent">Absent with Apology</label>
-            <textarea name="absent" id="absent" class="form-control" rows ="3" required><?php echo isset($meta['absent']) ? htmlspecialchars($meta['absent']) : ''; ?></textarea>
+            <textarea name="absent" id="absent" class="form-control" rows="3" required><?php echo isset($meta['absent']) ? htmlspecialchars($meta['absent']) : ''; ?></textarea>
         </div>
         <div class="form-group">
             <label for="agenda">Agenda</label>
-            <textarea name="agenda" id="agenda" class="form-control"  rows="4" required><?php echo isset($meta['agenda']) ? htmlspecialchars($meta['agenda']) : ''; ?></textarea>
+            <textarea name="agenda" id="agenda" class="form-control" rows="4" required><?php echo isset($meta['agenda']) ? htmlspecialchars($meta['agenda']) : ''; ?></textarea>
         </div>
         <div class="form-group">
-    <label for="content">Content</label>
-    <textarea name="content" id="content" class="form-control" rows="4" required><?php echo isset($meta['content']) ? htmlspecialchars($meta['content']) : ''; ?></textarea>
-</div>
-<div class="form-group">
-                <label for="title">Signed By</label>
-                <input type="text" name="signed_by" id="signed_by" class="form-control" value="<?php echo isset($meta['signed_by']) ? htmlspecialchars($meta['signed_by']) : ''; ?>" required>
-            </div>
+            <label for="content">Content</label>
+            <textarea name="content" id="content" class="form-control" rows="4" required><?php echo isset($meta['content']) ? htmlspecialchars($meta['content']) : ''; ?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="signed_by">Signed By</label>
+            <input type="text" name="signed_by" id="signed_by" class="form-control" value="<?php echo isset($meta['signed_by']) ? htmlspecialchars($meta['signed_by']) : ''; ?>" required>
+        </div>
         <div class="form-group">
             <label for="file">Upload File:</label>
             <input type="file" name="file" id="file" class="form-control">
         </div>
+        <button type="submit" class="btn btn-primary">Save Meeting</button>
     </form>
 </div>
 <script>
