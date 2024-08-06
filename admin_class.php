@@ -270,16 +270,22 @@ Class Action {
 		$time = isset($_POST['time']) ? $_POST['time'] : '';
 		$attendees = isset($_POST['attendees']) ? $_POST['attendees'] : [];
 		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : [];
-
+	
 		$id = isset($_POST['id']) ? $_POST['id'] : null;
 	
 		// Sanitize and prepare each field for the query
 		$type = $this->db->real_escape_string($type);
-		$date = $this->db->real_escape_string($date);
 		$location = $this->db->real_escape_string($location);
 		$time = $this->db->real_escape_string($time);
-		$agenda= $this->db->real_escape_string($agenda);
-
+		$agenda = $this->db->real_escape_string($agenda);
+	
+		// Validate date format
+		if ($date && !DateTime::createFromFormat('Y-m-d', $date)) {
+			error_log("Invalid date format: $date");
+			return 0; // Return error if date format is invalid
+		}
+		$date = $this->db->real_escape_string($date);
+	
 		// Process attendees: Convert array to a comma-separated string
 		if (is_array($attendees)) {
 			$attendees = array_map([$this->db, 'real_escape_string'], $attendees);
@@ -289,7 +295,7 @@ Class Action {
 		}
 	
 		// Construct the data string for the query
-		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees',agenda = '$agenda'";
+		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees', agenda = '$agenda'";
 	
 		// Handle file upload if exists
 		if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
