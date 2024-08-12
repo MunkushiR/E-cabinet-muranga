@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2024 at 02:43 PM
+-- Generation Time: Aug 12, 2024 at 02:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -361,7 +361,6 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (245, 'Member of Municipal Board', 32),
 (246, 'Member of Municipal Board', 33),
 (247, 'Member of Municipal Board', 34),
-(248, 'Advisor of the Governor', 10),
 (264, 'Admin Maragua Sub-county hospital', 47),
 (265, 'Chief Officer Revenue', 31),
 (266, 'Chief Officer Supply Chain', 31),
