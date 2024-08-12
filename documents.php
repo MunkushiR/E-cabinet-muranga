@@ -4,6 +4,8 @@ include('db_connect.php');
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Management</title>
     <link rel="shortcut icon" type="image/ico" href="assets/img/logo.png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
@@ -15,7 +17,7 @@ include('db_connect.php');
     <form action="upload.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="document">Upload Document</label>
-            <input type="file" name="document" id="document" class="form-control">
+            <input type="file" name="document" id="document" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
@@ -38,16 +40,21 @@ include('db_connect.php');
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    $id = htmlspecialchars($row['id']);
+                    $name = htmlspecialchars($row['name']);
+                    $type = htmlspecialchars($row['type']);
+                    $uploaded_at = htmlspecialchars($row['uploaded_at']);
+
                     echo "<tr>";
-                    echo "<td>".$row['id']."</td>";
-                    echo "<td>".$row['name']."</td>";
-                    echo "<td>".$row['type']."</td>";
-                    echo "<td>".$row['uploaded_at']."</td>";
+                    echo "<td>$id</td>";
+                    echo "<td>$name</td>";
+                    echo "<td>$type</td>";
+                    echo "<td>$uploaded_at</td>";
                     echo "<td>";
-                    echo "<a href='view.php?id=".$row['id']."' class='btn btn-info'>View</a> ";
-                    echo "<a href='download_doc.php?id=".$row['id']."' class='btn btn-success'>Download</a> ";
-                    echo "<a href='edit_doc.php?id=".$row['id']."' class='btn btn-warning'>Edit</a> ";
-                    echo "<a href='delete_doc.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\")'>Delete</a>";
+                    echo "<a href='view.php?id=$id' class='btn btn-info'>View</a> ";
+                    echo "<a href='download_doc.php?id=$id' class='btn btn-success'>Download</a> ";
+                    echo "<a href='edit_doc.php?id=$id' class='btn btn-warning'>Edit</a> ";
+                    echo "<a href='delete_doc.php?id=$id' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\")'>Delete</a>";
                     echo "</td>";
                     echo "</tr>";
                 }

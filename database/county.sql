@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2024 at 02:49 PM
+-- Generation Time: Aug 12, 2024 at 06:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -87,15 +87,6 @@ CREATE TABLE `documents` (
   `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `documents`
---
-
-INSERT INTO `documents` (`id`, `name`, `path`, `type`, `uploaded_at`) VALUES
-(4, 'Department evaluation.xlsx', '66b202ed4145f2.95410887.xlsx', 'application/vnd.openxmlformats-officedocument.spre', '2024-08-06 11:03:09'),
-(5, 'Ecabinet Login Credentials.xlsx', '66b3033acd5638.05979522.xlsx', 'application/vnd.openxmlformats-officedocument.spre', '2024-08-07 05:16:42'),
-(6, 'Ecabinet Login Credentials.xlsx', '66b320e8135da4.00197805.xlsx', 'application/vnd.openxmlformats-officedocument.spre', '2024-08-07 07:23:20');
-
 -- --------------------------------------------------------
 
 --
@@ -124,21 +115,8 @@ INSERT INTO `employees` (`id`, `firstname`, `lastname`, `personal_number`, `posi
 (38, 'county', ' secretary', 'county sec', 'county secretary', ' countysecreatry@gmail.com', '0700000000', 3, ''),
 (39, 'Deputy ', 'County Secretary', 'dep county sec', 'Deputy County Secretary', 'depcountysec@gmail.com', '0700000000', 4, ''),
 (41, 'County ', 'Attorney', 'County Attorney', 'County Attorney', 'CountyAttorney@gmail.com', '0700000000', 6, ''),
-(42, 'Chief of ', 'staff', 'Chief of Staff', 'Chief of Staff', 'ChieffStaff@gmail.com', '0700000000', 5, ''),
 (43, 'Secretary', ' Support', 'sec support', 'Secretary Support', 'SecretarySupport@gmail.com', '0700000000', 8, ''),
 (45, 'Departmental', ' Accountant', 'Departmental Ac', 'Departmental Accountant', 'Departmentalacc@gmai.com', '0700000000', 10, ''),
-(46, 'Medd ', 'supp', 'Medd supp', 'Medd supp', 'Meddsupp@gmail.com', '0700000000', 11, ''),
-(48, 'Procurement ', 'Officers', 'Procurement Off', 'Procurement Officers', 'Procurementofficers@gmail.com', '0700000000', 13, ''),
-(49, 'Council ', 'Secretariat', 'Council Sec', 'Council Secretariat', 'Councilsecretariat@gmail.com', '0700000000', 14, ''),
-(50, 'members of the', ' Board of directors meeting', 'member BOD', 'members of the Board of directors meeting', 'member BOD@gmail.com', '0700000000', 15, ''),
-(51, 'members of the CEC meeting', ' CEC meeting', 'member CEC', 'members of the CEC meeting', 'member CEC@gmail.com', '0700000000', 16, ''),
-(52, 'Members of the', 'county Executive(Cabinet) meet', 'member cabinet', 'Members of the county Executive(Cabinet) meeting', 'member cabinet@gmail.com', '0700000000', 17, ''),
-(53, 'Members of the ', 'Departmental meetings', 'member Depart', 'Members of the Departmental meetings', 'member Depart@gmail.com', '0700000000', 18, ''),
-(54, 'members of', ' interdepartmental meeting', 'member interdep', 'members of interdepartmental meeting', 'member interdepart@gmail.com', '0700000000', 19, ''),
-(55, 'members of the ', 'budget and economic council me', 'member BEC', 'members of the budget and economic council meeting', 'member BEC@gmail.com', '0700000000', 20, ''),
-(56, 'members of the ', 'COC meeting', 'member COC', 'members of the COC meeting', 'membbercoc@gmai.com', '0700000000', 21, ''),
-(57, 'members of the', 'monthly review meeting', 'member MRM', 'members of the monthly review meeting', 'membermrm@gmail.com', '0700000000', 22, ''),
-(58, 'members of the', ' hospital board meeting', 'member HBM', 'members of the hospital board meeting', 'memberhbm@gmail.com', '0700000000', 23, ''),
 (60, 'Philemon', 'Kibiru', 'Kibiru', 'Chief of Staff', 'philkibiru@gmail.com', '07181223827', 1234, ''),
 (61, 'Paul ', 'Kimani Mugo', 'Mugo', 'CECM Trade Industrialization & Tourism', 'mmugojjj@gmail.com', '0722985453', 1234, ''),
 (62, 'Mary ', 'Muthoni Magochi', 'Magochi', 'CECM Water Irrigation Environment & Natural Resources', 'marymuthoni12@gmail.com', '0725712750', 1234, ''),
@@ -155,7 +133,6 @@ INSERT INTO `employees` (`id`, `firstname`, `lastname`, `personal_number`, `posi
 (73, 'Beatrice ', 'Gicheha', 'Gicheha', 'Director Admin', 'gicheha@gmail.com', '072374194', 1234, ''),
 (74, 'Catherine', 'Kabuki', 'Kabuki', 'Director Accountant Governorship and coordination', 'kabuki@gmail.com', '0721311122', 1234, ''),
 (75, 'Edwin', ' Kimuyu', ' Kimuyu', 'Director Finance', 'kimuyu@gmail.com', '0700000000', 1234, ''),
-(76, 'Emilyo', 'Muchunu', 'Muchunu', 'Director Budget', 'muchunu@gmai.com', '0700000000', 1234, ''),
 (77, 'Anthony', 'Waithaka', 'Waithaka', 'Director Accounting Services', 'waithaka@gmail.com', '0700000000', 1234, ''),
 (78, 'Stephen K', 'Mwangi', 'Mwangi', 'Director Economic Planning', 'mwangi@gmail.com', '0700000000', 1234, ''),
 (79, 'Samuel', 'Kaaga', 'Kaaga', 'Director Internal Audit', 'kaaga@gmail.com', '0700000000', 1234, ''),
@@ -193,8 +170,7 @@ INSERT INTO `employees` (`id`, `firstname`, `lastname`, `personal_number`, `posi
 (113, 'Eng. Daniel', ' Ng\'ang\'a', ' Eng. Ng\'ang\'a', 'MD Muwasco', 'daniel@gmail.com', '071626795', 1234, ''),
 (114, 'Eng. Ephantus', ' Kamau', 'Eng. Ephantus', 'MD Mwewasco-Kahuti', 'ephantus@gmail.com', '072265188', 1234, ''),
 (115, 'Eng. John', ' Kairu', 'Eng. Kairu', 'MD Gatanga', 'kiaru@gmail.com', '0729350329', 1234, ''),
-(116, 'Charles', ' Muiruki', 'Charles Muiruki', 'MD Gatamathi', 'charlesmuiruki@gmail.com', '0725382238', 1234, ''),
-(117, 'Vera ', 'Wema', 'Vera Wema', 'Admin Kenneth Matiba hospital', 'verawema@gmai.com', '07000000', 1234, '');
+(116, 'Charles', ' Muiruki', 'Charles Muiruki', 'MD Gatamathi', 'charlesmuiruki@gmail.com', '0725382238', 1234, '');
 
 -- --------------------------------------------------------
 
@@ -263,7 +239,6 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (25, 'Deputy Governor', 1),
 (26, 'county secretary', 1),
 (27, 'Deputy County Secretary', 1),
-(28, 'CECMs', 1),
 (29, 'County Attorney', 1),
 (30, 'Chief of Staff', 1),
 (31, ' Secretary Support', 1),
@@ -309,7 +284,7 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (139, 'CECM  Lands Physical Planning & Urban Development', 21),
 (140, 'Director Survey', 21),
 (141, 'Director Valuation', 21),
-(142, 'Chief Officer Lands Survey', 21),
+(142, 'Chief Officer Survey and Land Administration', 21),
 (143, 'CECM Health and Sanitization', 20),
 (144, 'County Director Health', 20),
 (145, 'Deputy Director Health', 20),
@@ -322,7 +297,7 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (152, 'Medical Superintendent Kandara Sub-county hospital', 20),
 (153, 'Medical Superintendent Kenneth Matiba hospital', 20),
 (154, 'Head of HPTU/Pharms', 20),
-(155, 'Chief Officer Health', 20),
+(155, 'Chief Officer Public Health & Administration', 20),
 (156, 'Hospital Board Member', 20),
 (157, 'Departmental Accountant Health and Sanitization', 20),
 (158, 'PA-Health', 20),
@@ -341,8 +316,8 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (188, 'MD Mwewasco-Kahuti', 16),
 (189, 'MD Muwasco', 16),
 (190, 'MD Murang\' a South-Muswasco', 16),
-(197, 'Chief Officer Water', 16),
-(198, 'Chief Officer Water', 16),
+(197, 'Chief Officer Water irrigation environment & climatic change', 16),
+(198, 'Chief Officer Water irrigation environment & climatic change', 3),
 (230, 'County Secretary', 32),
 (231, 'Deputy County Secretary', 32),
 (232, 'CECM  Lands Physical Planning & Urban Development', 32),
@@ -352,9 +327,9 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (236, 'County Secretary\r\n', 34),
 (237, 'Deputy County Secretary', 34),
 (238, 'Deputy County Secretary', 33),
-(239, 'chief Officer  Physical Planning', 32),
+(239, 'chief Officer Physical Planning & Urban Development', 32),
 (240, 'chief 0fficer Physical Planning', 33),
-(241, 'chief Officer Physical Planning', 34),
+(241, 'chief Officer Physical Planning & Urban Development', 34),
 (242, 'Director Physical Planning', 32),
 (243, 'Director Physical Planning', 33),
 (244, 'Director Physical Planning', 34),
@@ -362,12 +337,10 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (246, 'Member of Municipal Board', 33),
 (247, 'Member of Municipal Board', 34),
 (264, 'Admin Maragua Sub-county hospital', 47),
-(265, 'Chief Officer Revenue', 31),
-(266, 'Chief Officer Supply Chain', 31),
-(267, 'Chief Officer Legal', 30),
+(265, 'Chief Officer Revenue and Supply chain management', 31),
 (268, 'Member of Legal Department', 30),
 (269, 'Member of 	\r\nDepartment of Revenue and Supply Chain', 31),
-(270, 'Chief Officer Communication and Media', 29),
+(270, 'Chief Officer Communication and Media Education', 29),
 (271, 'Member Department of Communication and Media', 29),
 (272, 'Member County Public Service Board', 28),
 (273, 'Secretary County Public Service Board', 28),
@@ -375,27 +348,26 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (277, 'Member of the Economic Council', 27),
 (279, 'Chair Economic Council', 27),
 (280, 'Secretariat Economic Council', 27),
-(281, 'Chief officer Economic Council', 27),
+(281, 'Chief Officer Finance and Economic Planning\r\n', 27),
 (282, 'CECM Devolution and External Linkages', 26),
 (283, 'Chief officer Devolution and External Linkages', 26),
 (284, 'Director Devolution and External Linkages', 26),
 (285, 'Member Devolution and External Linkages', 26),
 (286, 'Member Department of Governorship County Coordination and Administration', 25),
-(287, 'Chief Officer Governorship County Coordination and Administration', 25),
+(287, 'Chief Officer Governor\'s delivery unit', 25),
 (288, 'CECM ICT Public Service & Administration ', 24),
-(289, 'Chief Officer Public Administration & ICT', 24),
+(289, 'Chief Officer Public service & Administration/Devolution', 24),
 (290, 'Director Public Administration & ICT', 24),
 (291, 'Member Public Administration & ICT', 24),
-(292, 'Chief Officer ICT', 24),
+(292, 'Chief Officer ICT & E-governance', 24),
 (293, 'CECM Agriculture Livestock & Cooperatives', 23),
 (294, 'CECM Trade Industrialization & Tourism', 23),
-(295, 'Chief officer Trade', 23),
-(296, 'Chief officer agriculture', 23),
+(295, 'Chief officer Trade Industrialization & cooperative Development', 23),
+(296, 'Chief officer agriculture livestock veterinary services & fisheries', 23),
 (297, 'Director Trade', 23),
 (298, 'Director Agriculture', 23),
 (299, 'Member Department of Agriculture Livestock & Cooperatives', 23),
 (300, 'CECM Education & Technical Training', 22),
-(301, 'Chief officer Education', 22),
 (302, 'Director  Education', 22),
 (303, 'Chief officer Technical Training', 22),
 (304, 'Director Technical Training', 22),
@@ -403,15 +375,13 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (306, 'Member Department of Lands Physical Planning & Urban Development', 21),
 (307, 'Director Health ', 20),
 (308, 'Member Department of Health and Sanitization', 20),
-(309, 'Chief Officer Finance', 19),
-(310, 'Chief Officer Economic Planning', 19),
+(310, 'Chief Officer Finance and Economic Planning\r\n', 19),
 (311, 'Member Department of Finance & Economic Planning', 19),
 (312, 'Member Department of Youth affairs Culture and Social Services', 18),
-(313, 'Chief Officer Youth', 18),
-(314, 'Chief Officer Culture ', 18),
-(315, 'Chief Officer  Sports', 18),
-(316, 'Chief Officer Roads', 17),
-(317, 'Chief Officer Infrastructure ', 17),
+(313, 'Chief Officer Youth affairs & sports', 3),
+(314, 'Chief Officer Culture gender and social services', 18),
+(316, 'Chief Officer Roads & Housing', 17),
+(317, 'Chief Officer Infrastructure & community projects', 17),
 (318, 'Member Department of Roads Housing & Infrastructure', 17),
 (319, 'CECM Roads Housing & Infrastructure', 17),
 (320, 'CECM Water Irrigation Environment & Natural Resources', 16),
@@ -493,7 +463,6 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (396, 'Governor', 16),
 (397, 'Deputy Governor', 16),
 (398, 'Chief of Staff', 27),
-(399, 'Chief of Staff\r\n', 27),
 (400, 'Governor', 17),
 (401, 'Deputy Governor', 17),
 (402, 'County Secretary', 17),
@@ -551,18 +520,27 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (454, 'Admin Kangema Sub-county hospital\r\n', 20),
 (455, 'Admin Maragua Sub-county hospital\r\n', 20),
 (456, 'Director Water', 16),
-(457, 'Chief Officer Health', 3),
-(458, 'chief Officer  Physical Planning', 3),
-(459, 'Chief Officer Revenue', 3),
-(460, 'Chief Officer Supply Chain', 3),
-(461, 'Chief Officer Legal', 3),
 (462, 'Chief Officer Communication and Media', 3),
-(463, 'Chief officer Economic Council', 3),
 (464, 'Chief officer Devolution and External Linkages', 3),
-(465, 'Chief Officer ICT', 3),
-(466, 'Chief officer Trade', 3),
-(467, 'Chief officer agriculture', 3),
-(468, 'Chief officer Education', 3);
+(465, 'Chief Officer ICT & E-governance', 3),
+(469, 'Chief Officer Finance and Economic Planning\r\n', 3),
+(470, 'Chief Officer Roads & Housing', 3),
+(471, 'Chief Officer Revenue and Supply chain management', 3),
+(472, 'Chief Officer Public Health & Administration', 3),
+(473, 'Chief Officer Governor\'s delivery unit', 3),
+(474, 'Chief officer agriculture livestock veterinary services & fisheries', 3),
+(476, 'Chief Officer Culture gender and social services', 3),
+(477, 'Chief Officer Infrastructure & community projects', 3),
+(478, 'Chief Officer Public service & Administration/Devolution', 3),
+(479, 'Chief Officer Communication and Media Education', 3),
+(480, 'Chief Officer Communication and Media Education', 22),
+(481, 'Chief Officer Medical Services ', 3),
+(482, 'Chief Officer Medical Services ', 20),
+(483, 'Chief officer Technical Training', 3),
+(484, 'Chief Officer Survey and Land Administration', 3),
+(485, 'Chief officer Trade Industrialization & cooperative Development', 3),
+(486, 'chief Officer Physical Planning & Urban Development', 3),
+(487, 'chief Officer Physical Planning & Urban Development', 33);
 
 -- --------------------------------------------------------
 
@@ -595,15 +573,6 @@ CREATE TABLE `minutes` (
   `agenda` varchar(10000) NOT NULL,
   `file` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `minutes`
---
-
-INSERT INTO `minutes` (`id`, `type`, `date`, `location`, `time`, `attendees`, `agenda`, `file`) VALUES
-(40, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods'),
-(41, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods'),
-(42, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods');
 
 -- --------------------------------------------------------
 
@@ -810,7 +779,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -828,13 +797,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `meetings`
 --
 ALTER TABLE `meetings`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=469;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=488;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -846,7 +815,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `minutes`
 --
 ALTER TABLE `minutes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `notifications`

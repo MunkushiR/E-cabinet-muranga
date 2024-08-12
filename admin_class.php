@@ -264,21 +264,22 @@ Class Action {
 	}
 	function save_minutes() {
 		// Ensure POST variables are defined
-		$type = isset($_POST['type']) ? $this->db->real_escape_string($_POST['type']) : '';
+		$type = isset($_POST['type']) ? $_POST['type'] : '';
 		$date = isset($_POST['date']) ? $_POST['date'] : '';
-		$location = isset($_POST['location']) ? $this->db->real_escape_string($_POST['location']) : '';
-		$time = isset($_POST['time']) ? $this->db->real_escape_string($_POST['time']) : '';
+		$location = isset($_POST['location']) ? $_POST['location'] : '';
+		$time = isset($_POST['time']) ? $_POST['time'] : '';
 		$attendees = isset($_POST['attendees']) ? $_POST['attendees'] : [];
-		$agenda = isset($_POST['agenda']) ? $this->db->real_escape_string($_POST['agenda']) : '';
-		$id = isset($_POST['id']) ? $this->db->real_escape_string($_POST['id']) : null;
+		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : [];
+
+		$id = isset($_POST['id']) ? $_POST['id'] : null;
 	
-		// Validate date format
-		if ($date && !DateTime::createFromFormat('Y-m-d', $date)) {
-			error_log("Invalid date format: $date");
-			return 0; // Return error if date format is invalid
-		}
+		// Sanitize and prepare each field for the query
+		$type = $this->db->real_escape_string($type);
 		$date = $this->db->real_escape_string($date);
-	
+		$location = $this->db->real_escape_string($location);
+		$time = $this->db->real_escape_string($time);
+		$agenda= $this->db->real_escape_string($agenda);
+
 		// Process attendees: Convert array to a comma-separated string
 		if (is_array($attendees)) {
 			$attendees = array_map([$this->db, 'real_escape_string'], $attendees);
@@ -288,7 +289,7 @@ Class Action {
 		}
 	
 		// Construct the data string for the query
-		$data = "type='$type', date='$date', location='$location', time='$time', attendees='$attendees', agenda='$agenda'";
+		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees',agenda = '$agenda'";
 	
 		// Handle file upload if exists
 		if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -312,23 +313,18 @@ Class Action {
 		if (empty($id)) {
 			$query = "INSERT INTO minutes SET $data";
 		} else {
-			$query = "UPDATE minutes SET $data WHERE id = '$id'";
+			$id = $this->db->real_escape_string($id);
+			$query = "UPDATE minutes SET $data WHERE id = $id";
 		}
 	
 		// Execute the query
-		try {
-			if ($this->db->query($query)) {
-				return 1;
-			} else {
-				error_log("Database Query Error: " . $this->db->error);
-				return 0;
-			}
-		} catch (mysqli_sql_exception $e) {
-			error_log("SQL Exception: " . $e->getMessage());
+		if ($this->db->query($query)) {
+			return 1;
+		} else {
+			error_log("Database Query Error: " . $this->db->error);
 			return 0;
 		}
 	}
-	
 	
 	function delete_minutes(){
 		extract($_POST);
