@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2024 at 01:53 PM
+-- Generation Time: Aug 12, 2024 at 10:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,30 +38,6 @@ CREATE TABLE `attendance` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cabinets`
---
-
-CREATE TABLE `cabinets` (
-  `id` int(20) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `cabinets`
---
-
-INSERT INTO `cabinets` (`id`, `name`) VALUES
-(1, 'Governor'),
-(2, 'DG'),
-(3, 'CECMs'),
-(4, 'County Attorney'),
-(5, 'DCS'),
-(6, 'Chief of staff'),
-(7, 'Secretary');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `department`
 --
 
@@ -76,17 +52,12 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`id`, `name`) VALUES
 (1, 'County Executive Committee(Cabinet) Meeting'),
-(2, 'Department Evaluation Meetings'),
 (3, 'Interdepartmental Meeting'),
-(10, 'COS meeting'),
-(12, 'Board of Directors Meeting'),
-(13, 'Monthly review meeting'),
-(14, 'Hospital Board Meeting'),
 (16, 'Department of Water Irrigation Environment & Natural Resources'),
 (17, 'Department of Roads Housing & Infrastructure'),
 (18, 'Department of Youth affairs Culture and Social Services'),
 (19, 'Department of Finance & Economic Planning'),
-(20, 'Department of Health and Sanitization'),
+(20, 'Department of Health Services and Sanitation'),
 (21, 'Department of Lands Physical Planning & Urban Development'),
 (22, 'Department of Education & Technical Training'),
 (23, 'Department of Agriculture Trade & Cooperatives'),
@@ -113,30 +84,10 @@ INSERT INTO `department` (`id`, `name`) VALUES
 (44, '⁠Kenneth Matiba Hospital'),
 (45, 'Muriranjas Level Iv Hospital'),
 (46, 'Kangema Level IV Hospital'),
-(47, 'Maragwa subcounty Hospital');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `departmental`
---
-
-CREATE TABLE `departmental` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `departmental`
---
-
-INSERT INTO `departmental` (`id`, `name`) VALUES
-(2, 'Governor'),
-(3, 'DG'),
-(4, 'CECMS of the Department'),
-(5, 'Chief officer of the Department'),
-(6, 'Director(s) of the department'),
-(7, 'Departmental Accountant');
+(47, 'Maragwa subcounty Hospital'),
+(50, ''),
+(51, ''),
+(52, '123');
 
 -- --------------------------------------------------------
 
@@ -188,14 +139,11 @@ INSERT INTO `employees` (`id`, `firstname`, `lastname`, `personal_number`, `posi
 (37, 'H.E Stephen', 'Munaina', 'Deputy Governor', 'Deputy Governor', 'deputygovernor@gmai.com', '0700000000', 2, ''),
 (38, 'county', ' secretary', 'county sec', 'county secretary', ' countysecreatry@gmail.com', '0700000000', 3, ''),
 (39, 'Deputy ', 'County Secretary', 'dep county sec', 'Deputy County Secretary', 'depcountysec@gmail.com', '0700000000', 4, ''),
-(40, 'CECMs', 'CECMs', 'CECMs', 'CECMs', 'CECMs@gmail.com', '0700000000', 5, ''),
 (41, 'County ', 'Attorney', 'County Attorney', 'County Attorney', 'CountyAttorney@gmail.com', '0700000000', 6, ''),
 (42, 'Chief of ', 'staff', 'Chief of Staff', 'Chief of Staff', 'ChieffStaff@gmail.com', '0700000000', 5, ''),
 (43, 'Secretary', ' Support', 'sec support', 'Secretary Support', 'SecretarySupport@gmail.com', '0700000000', 8, ''),
-(44, 'Directors ', 'Directors ', 'Directors ', 'Directors ', 'Directors@gmail,com', '0700000000', 9, ''),
 (45, 'Departmental', ' Accountant', 'Departmental Ac', 'Departmental Accountant', 'Departmentalacc@gmai.com', '0700000000', 10, ''),
 (46, 'Medd ', 'supp', 'Medd supp', 'Medd supp', 'Meddsupp@gmail.com', '0700000000', 11, ''),
-(47, 'Subcounty ', 'Administrator', 'subcounty admn', 'Subcounty Administrator', 'sucountyadm@gmail.com', '0700000000', 12, ''),
 (48, 'Procurement ', 'Officers', 'Procurement Off', 'Procurement Officers', 'Procurementofficers@gmail.com', '0700000000', 13, ''),
 (49, 'Council ', 'Secretariat', 'Council Sec', 'Council Secretariat', 'Councilsecretariat@gmail.com', '0700000000', 14, ''),
 (50, 'members of the', ' Board of directors meeting', 'member BOD', 'members of the Board of directors meeting', 'member BOD@gmail.com', '0700000000', 15, ''),
@@ -416,15 +364,11 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (115, 'CECM Public Administration & ICT', 1),
 (116, 'CECM Governorship County Coordination and Administration', 1),
 (117, 'CECM Devolution and External Linkages', 1),
-(119, 'CECM Murang’a County Budget and Economic Council', 1),
 (121, 'CECM County Public Service Board', 1),
-(122, 'CECM Communication and Media', 1),
-(123, 'CECM Legal', 1),
 (124, 'Director Transport', 25),
 (125, 'Director Disaster and Fire', 25),
 (126, 'Director Admin', 25),
 (127, 'Director Accountant Governorship and coordination', 25),
-(128, 'CECM Governorship County Coordination and Administration', 25),
 (129, 'CECM Finance & Economic Planning', 19),
 (130, 'Director Finance ', 19),
 (131, 'Director Budget ', 19),
@@ -473,9 +417,6 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (180, 'Director Culture', 18),
 (181, 'Director Social Services', 18),
 (182, 'Director Accountant Youth Affairs sports culture social services', 18),
-(183, 'CECM Communication and Media', 29),
-(184, 'Director Communication', 29),
-(185, 'CECM Legal', 30),
 (186, 'MD Gatamathi', 30),
 (187, 'MD Gatanga', 30),
 (188, 'MD Mwewasco-Kahuti', 30),
@@ -560,11 +501,9 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (271, 'Member Department of Communication and Media', 29),
 (272, 'Member County Public Service Board', 28),
 (273, 'Secretary County Public Service Board', 28),
-(274, 'CECM County Public Service Board', 28),
 (275, 'Chair County Public Service Board', 28),
 (276, 'Chief officer Department of County Public Service Board', 28),
 (277, 'Member of Department of Murang’a County Budget and Economic Council', 27),
-(278, 'CECM Murang’a County Budget and Economic Council', 27),
 (279, 'Chair Economic Council', 27),
 (280, 'Secretariat Economic Council', 27),
 (281, 'Chief officer Economic Council', 27),
@@ -574,7 +513,7 @@ INSERT INTO `members` (`id`, `name`, `department_id`) VALUES
 (285, 'Member Devolution and External Linkages', 26),
 (286, 'Member Department of Governorship County Coordination and Administration', 25),
 (287, 'Chief Officer Department of Governorship County Coordination and Administration', 25),
-(288, 'CECM Public Administration & ICT', 24),
+(288, 'CECM ICT Public Service & Administration ', 24),
 (289, 'Chief Officer Public Administration & ICT', 24),
 (290, 'Director Public Administration & ICT', 24),
 (291, 'Member Public Administration & ICT', 24),
@@ -708,6 +647,15 @@ CREATE TABLE `minutes` (
   `file` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `minutes`
+--
+
+INSERT INTO `minutes` (`id`, `type`, `date`, `location`, `time`, `attendees`, `agenda`, `file`) VALUES
+(40, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods'),
+(41, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods'),
+(42, 'Department of Health Services and Sanitation', '2024-08-12', 'Muranga county', '04:48:00.000000', 'Admin Kenneth Matiba hospital, CECM Health and Sanitization, Medical Superintendent Kangema Sub-county hospital, Medical Superintendent Kenneth Matiba hospital, Medical Superintendent Kigumo Sub-county hospital, Medical Superintendent Kirwara Sub-county hospital', '123', 'downloads/Attachees and Interns.ods');
+
 -- --------------------------------------------------------
 
 --
@@ -822,21 +770,9 @@ ALTER TABLE `attendance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cabinets`
---
-ALTER TABLE `cabinets`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `departmental`
---
-ALTER TABLE `departmental`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -916,22 +852,10 @@ ALTER TABLE `attendance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `cabinets`
---
-ALTER TABLE `cabinets`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
---
--- AUTO_INCREMENT for table `departmental`
---
-ALTER TABLE `departmental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `documents`
@@ -973,7 +897,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `minutes`
 --
 ALTER TABLE `minutes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `notifications`
