@@ -9,8 +9,6 @@ include('db_connect.php');
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<link rel="shortcut icon" type="image/ico" href="assets/img/logo.png" />
-</head>
 <body>
 <div class="container">
     <h1>Document Management</h1>
@@ -47,9 +45,9 @@ include('db_connect.php');
                     echo "<td>".$row['uploaded_at']."</td>";
                     echo "<td>";
                     echo "<a href='view.php?id=".$row['id']."' class='btn btn-info'>View</a> ";
-                    echo "<a href='dowload_doc.php?id=".$row['id']."' class='btn btn-success'>Download</a> ";
+                    echo "<a href='download_doc.php?id=".$row['id']."' class='btn btn-success'>Download</a> ";
                     echo "<a href='edit_doc.php?id=".$row['id']."' class='btn btn-warning'>Edit</a> ";
-                    echo "<a href='share.php?id=".$row['id']."' class='btn btn-secondary'>Share</a>";
+                    echo "<a href='delete_doc.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\")'>Delete</a>";
                     echo "</td>";
                     echo "</tr>";
                 }
