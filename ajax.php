@@ -50,10 +50,19 @@ if ($action == 'save_settings') {
         echo $save;
 }
 if ($action == 'save_minutes') {
+    // Call the save_minutes method from the CRUD class
     $save = $crud->save_minutes();
-    if ($save)
-        echo $save;
+
+    // Check if the save operation was successful
+    if ($save) {
+        // Send a success response
+        echo json_encode(['status' => 'success', 'message' => 'Data saved successfully.']);
+    } else {
+        // Send an error response
+        echo json_encode(['status' => 'error', 'message' => 'Failed to save data.']);
+    }
 }
+
 if ($action == 'save_employee') {
     $save = $crud->save_employee();
     if ($save)
