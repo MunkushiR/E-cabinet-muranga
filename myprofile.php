@@ -5,14 +5,13 @@ if (isset($_POST['update'])) {
     $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
     $personal_number = mysqli_real_escape_string($conn, $_POST['personal_number']);
-    $position = mysqli_real_escape_string($conn, $_POST['position']);
     $work_email = mysqli_real_escape_string($conn, $_POST['work_email']);
     $phonenumber = mysqli_real_escape_string($conn, $_POST['phonenumber']);
     $national_id = mysqli_real_escape_string($conn, $_POST['national_id']);
     $currentUser = $_SESSION['personal_number'];
     
-    // Update SQL query
-    $sql = "UPDATE `employees` SET `firstname`='$firstname', `lastname`='$lastname', `personal_number`='$personal_number',`position`='$position',
+    // Update SQL query without the position field
+    $sql = "UPDATE `employees` SET `firstname`='$firstname', `lastname`='$lastname', `personal_number`='$personal_number',
     `work_email`='$work_email', `phonenumber`='$phonenumber', `national_id`='$national_id' WHERE `personal_number`='$currentUser'";
     
     $result = $conn->query($sql);
@@ -83,25 +82,14 @@ if (isset($_POST['update'])) {
                             <label for="work_email" class="control-label">Work Email</label>
                             <input type="email" id="work_email" name="work_email" value="<?php echo $row['work_email']; ?>" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="Position" class="control-label">Position</label>
-                            <select class="custom-select browser-default select2" name="position" id="position">
-                                <?php
-                                $dept = $conn->query("SELECT * FROM members ORDER BY name ASC");
-                                while ($deptRow = $dept->fetch_assoc()) {
-                                    $selected = ($row['members'] == $deptRow['name']) ? 'selected' : '';
-                                    echo "<option value='{$deptRow['name']}' $selected>{$deptRow['name']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                        <!-- Removed Position Field -->
                         <div class="form-group">
                             <label for="phonenumber" class="control-label">Phone Number</label>
                             <input type="tel" id="phonenumber" name="phonenumber" value="<?php echo $row['phonenumber']; ?>" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="national_id" class="control-label">Nationa Id</label>
-                            <input type="national_id" id="national_id" name="national_id" value="<?php echo $row['national_id']; ?>" class="form-control">
+                            <label for="national_id" class="control-label">National ID</label>
+                            <input type="text" id="national_id" name="national_id" value="<?php echo $row['national_id']; ?>" class="form-control">
                         </div>
                         <center>
                             <button type="submit" class="btn-sm btn-block btn-wave col-md-4 btn-primary" value="Update" name="update">Update Profile</button>
