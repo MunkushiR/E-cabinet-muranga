@@ -60,6 +60,9 @@ while ($meeting = $meetingsQuery->fetch_assoc()) {
             border-radius: .5px;
             box-shadow: 1px 1px 2px 1px darkgrey;
         }
+        ol {
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +99,19 @@ while ($meeting = $meetingsQuery->fetch_assoc()) {
                                         ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($meeting['location']); ?></td>
-                                    <td><?php echo htmlspecialchars($meeting['agenda']); ?></td> <!-- Display the agenda -->
+                                    <td>
+                                        <?php
+                                        // Convert agenda to a numbered list
+                                        $agendaItems = explode("\n", $meeting['agenda']);
+                                        echo '<ol>';
+                                        foreach ($agendaItems as $item) {
+                                            if (!empty(trim($item))) {
+                                                echo '<li>' . htmlspecialchars($item) . '</li>';
+                                            }
+                                        }
+                                        echo '</ol>';
+                                        ?>
+                                    </td>
                                     <td>
                                         <?php if (!empty($meeting['file'])): ?>
                                             <a href="<?php echo htmlspecialchars($meeting['file']); ?>" target="_blank">View/Download Document</a>

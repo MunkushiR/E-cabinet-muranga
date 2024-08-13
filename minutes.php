@@ -1,5 +1,5 @@
 <?php 
-
+include 'db_connect.php';
 ?>
 
 <div class="container-fluid">
@@ -30,15 +30,14 @@
                     </thead>
                     <tbody>
                         <?php
-                        include 'db_connect.php';
                         $users = $conn->query("SELECT * FROM minutes");
                         $i = 1;
                         while ($row = $users->fetch_assoc()):
                         ?>
                             <tr>
                                 <td><?php echo $i++ ?></td>
-                                <td><?php echo $row['type'] ?></td>
-                                <td><?php echo $row['date'] ?></td>
+                                <td><?php echo htmlspecialchars($row['type']) ?></td>
+                                <td><?php echo htmlspecialchars($row['date']) ?></td>
                                 <td>
                                     <?php
                                     $time = $row['time'];
@@ -46,28 +45,29 @@
                                     echo $dateTime->format('h:i A');
                                     ?>
                                 </td>
-                                <td><?php echo $row['location'] ?></td>
+                                <td><?php echo htmlspecialchars($row['location']) ?></td>
                                 <td>
                                     <ul>
                                         <?php 
                                         $attendees = explode(',', $row['attendees']);
                                         foreach($attendees as $attendee): ?>
-                                            <li><?php echo trim($attendee); ?></li>
+                                            <li><?php echo htmlspecialchars(trim($attendee)); ?></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </td>
                                 <td>
-                                    <ul>
-                                        <?php 
-                                        $agenda_items = explode(',', $row['agenda']);
-                                        foreach($agenda_items as $agenda_item): ?>
-                                            <li><?php echo trim($agenda_item); ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
+                                    <?php 
+                                    $agenda_items = explode("\n", $row['agenda']);
+                                    echo '<ol>';
+                                    foreach($agenda_items as $agenda_item): ?>
+                                        <li><?php echo htmlspecialchars(trim($agenda_item)); ?></li>
+                                    <?php endforeach; 
+                                    echo '</ol>';
+                                    ?>
                                 </td>
                                 <td>
                                     <?php if (!empty($row['file'])): ?>
-                                        <a href="<?php echo $row['file']; ?>" target="_blank">View/Download Document</a>
+                                        <a href="<?php echo htmlspecialchars($row['file']); ?>" target="_blank">View/Download Document</a>
                                     <?php else: ?>
                                         No document found
                                     <?php endif; ?>
