@@ -18,7 +18,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['personal_number'])) {
 <?php include('./header.php'); ?>
 <style>
 	body{
-        background:  #f1e420;
+        background: white;
   }
    .welcome{
 	 
