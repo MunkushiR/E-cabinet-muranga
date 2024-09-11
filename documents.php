@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include('db_connect.php');
+
 // Initialize variables
 $documentsQuery = null;
 $documentsResult = null;
@@ -159,10 +160,10 @@ if (is_null($documentsResult)) {
         echo "<td>".$row['uploaded_at']."</td>";
         echo "<td>";
         // View the document in a new tab
-        echo '<a href="view.php?id=' . $row['id'] . '" target="_blank" class="btn btn-info">View</a>';
+        echo '<a href="view.php?id=' . $row['id'] . '" target="_blank" class="btn btn-primary">Download</a>';
 
         // Download the document via download_doc.php script
-        echo "<a href='download_doc.php?id=".$row['id']."' class='btn btn-success'>Download</a> ";
+    
         echo "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editModal' data-id='".$row['id']."' data-name='".$row['name']."' data-viewers='".htmlspecialchars($row['viewer_position'], ENT_QUOTES, 'UTF-8')."'>Edit</button>";
         echo "<a href='delete_doc.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\");'>Delete</a>"; // New Delete Button
         echo "</td>";
@@ -247,7 +248,6 @@ $(document).ready(function() {
         modal.find('#edit_viewer_positions').val(viewerPositionsArray).trigger('change'); // Highlight the selected positions
     });
 });
-
 </script>
 </body>
 </html>
