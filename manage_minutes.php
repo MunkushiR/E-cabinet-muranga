@@ -1,32 +1,34 @@
 <?php 
 include('db_connect.php');
 if(isset($_GET['id'])){
-    $meeting = $conn->query("SELECT * FROM minutes WHERE id = " . intval($_GET['id']));
-    if($meeting->num_rows > 0){
-        $meta = $meeting->fetch_assoc();
-    } else {
-        echo "No minutes found with the given ID.";
+    $meeting = $conn->query("SELECT * FROM minutes where id =".$_GET['id']);
+    foreach($meeting->fetch_array() as $k =>$v){
+        $meta[$k] = $v;
+    }
+
+    // Parse the attendees into an array if not already in array form
+    if (isset($meta['attendees']) && !is_array($meta['attendees'])) {
+        $meta['attendees'] = explode(', ', $meta['attendees']);
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Minutes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </head>
 <body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div class="container-fluid">
-    <form action="" id="manage-minutes" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo isset($meta['id']) ? htmlspecialchars($meta['id']) : '' ?>">
+    <form action="" id="manage-minutes">
+        <input type="hidden" name="id" value="<?php echo isset($meta['id']) ? $meta['id']: '' ?>">
+        
+        <!-- Meeting Type Select -->
         <div class="form-group">
             <label for="type" class="control-label">Meeting Type</label>
-            <select class="custom-select browser-default select2" name="type" id="type" required>
+            <select class="custom-select browser-default select2" name="type" id="type">
                 <?php
                 $types = $conn->query("SELECT DISTINCT name FROM department ORDER BY name ASC");
                 while ($typeRow = $types->fetch_assoc()) {
@@ -36,42 +38,47 @@ if(isset($_GET['id'])){
                 ?>
             </select>
         </div>
+
+        <!-- Date of Meeting -->
         <div class="form-group">
             <label>Date of Meeting</label>
-            <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($meta['date']) ? htmlspecialchars($meta['date']) : '' ?>" required>
+            <input type="date" name="date" id="date" class="form-control" value="<?php echo isset($meta['date']) ? $meta['date']: '' ?>" required>
         </div>
+
+        <!-- Time -->
         <div class="form-group">
             <label for="time">Time</label>
-            <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($meta['time']) ? htmlspecialchars($meta['time']) : '' ?>" required>
+            <input type="time" name="time" id="time" class="form-control" value="<?php echo isset($meta['time']) ? date('H:i', strtotime($meta['time'])) : ''; ?>" required>
         </div>
+
+        <!-- Location -->
         <div class="form-group">
             <label>Location</label>
-            <input type="text" name="location" id="location" class="form-control" value="<?php echo isset($meta['location']) ? htmlspecialchars($meta['location']) : '' ?>" required>
+            <input type="text" name="location" id="location" placeholder="required" class="form-control" value="<?php echo isset($meta['location']) ? $meta['location']: '' ?>" required>
         </div>
+
+        <!-- Attendees Select -->
         <div class="form-group">
-            <label for="attendees">Those to attend</label>
-            <select class="custom-select browser-default select2" name="attendees[]" id="attendees" multiple required>
+            <label for="attendees" class="control-label">Those to attend</label>
+            <select class="custom-select browser-default select2" name="attendees[]" id="attendees" multiple>
                 <?php
-                $positions = $conn->query("SELECT DISTINCT position FROM employees ORDER BY position ASC");
-                while ($positionRow = $positions->fetch_assoc()) {
-                    $selected = (isset($meta['attendees']) && in_array($positionRow['position'], explode(', ', $meta['attendees']))) ? 'selected' : '';
-                    echo "<option value='{$positionRow['position']}' $selected>{$positionRow['position']}</option>";
+                $types = $conn->query("SELECT DISTINCT name FROM department ORDER BY name ASC");
+                while ($typeRow = $types->fetch_assoc()) {
+                    $selected = (isset($meta['attendees']) && is_array($meta['attendees']) && in_array($typeRow['name'], $meta['attendees'])) ? 'selected' : '';
+                    echo "<option value='{$typeRow['name']}' $selected>{$typeRow['name']}</option>";
                 }
                 ?>
             </select>
         </div>
-        <div class="form-group">
-            <label>Agenda</label>
-            <textarea name="agenda" id="agenda" class="form-control" required><?php echo isset($meta['agenda']) ? htmlspecialchars($meta['agenda']) : '' ?></textarea>
-        </div>
+
+        <!-- File Upload -->
         <div class="form-group">
             <label for="file">Upload File:</label>
             <input type="file" name="file" id="file" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+
     </form>
-</div>
-<script>
+    <script>
     $(document).ready(function() {
         $('#manage-minutes').submit(function(e) {
             e.preventDefault();
@@ -84,7 +91,7 @@ if(isset($_GET['id'])){
                 contentType: false,
                 success: function(resp) {
                     if (resp == 1) {
-                        alert_toast("Minutes successfully saved", 'success');
+                        alert_toast("Meeting successfully saved", 'success');
                         setTimeout(function() {
                             location.reload();
                         }, 1000);
@@ -106,6 +113,6 @@ if(isset($_GET['id'])){
     function alert_toast(message, type) {
         alert(type + ": " + message);
     }
-</script>
+    </script>
 </body>
 </html>

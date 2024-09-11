@@ -111,24 +111,21 @@ Class Action {
 		}
 	}
 	function save_meeting(){
-		extract($_POST);
-	
-		// Initialize the database connection
-		$conn = $this->db; // Assuming $this->db is your database connection
-	
-	
-		// Escape the values to safely insert into the SQL query
-		$type = $conn->real_escape_string($type);
-		$title = $conn->real_escape_string($title);
-		$date = $conn->real_escape_string($date);
-		$time = $conn->real_escape_string($time);
-		$present_members = $conn->real_escape_string($present_members);
-		$agenda = $conn->real_escape_string($agenda);
-		$absent = $conn->real_escape_string($absent);
-		$attendees = $conn->real_escape_string($attendees);
-		$content = $conn->real_escape_string($content);
-		$signed_by = $conn->real_escape_string($signed_by);
-	
+		$conn = $this->db;
+		
+		// Escape and sanitize POST data
+		$type = $conn->real_escape_string($_POST['type']);
+		$title = $conn->real_escape_string($_POST['title']);
+		$date = $conn->real_escape_string($_POST['date']);
+		$time = $conn->real_escape_string($_POST['time']);
+		$present_members = $conn->real_escape_string($_POST['present_members']);
+		$agenda = $conn->real_escape_string($_POST['agenda']);
+		$absent = $conn->real_escape_string($_POST['absent']);
+		$attendees = $conn->real_escape_string($_POST['attendees']);
+		$content = $conn->real_escape_string($_POST['content']);
+		$signed_by = $conn->real_escape_string($_POST['signed_by']);
+		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
+		
 		// Prepare the data string for the SQL query
 		$data = "type='$type', ";
 		$data .= "title='$title', ";
@@ -138,44 +135,44 @@ Class Action {
 		$data .= "agenda='$agenda', ";
 		$data .= "absent='$absent', ";
 		$data .= "attendees='$attendees', ";
-		$data .= "signed_by='$signed_by', ";
-		$data .= "content='$content'";
+		$data .= "content='$content', ";
+		$data .= "signed_by='$signed_by'";
 		
-	
 		// Handle file upload if exists
 		if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
 			$fileTmpPath = $_FILES['file']['tmp_name'];
 			$fileName = $conn->real_escape_string($_FILES['file']['name']);
-			$destinationPath = 'downloads/' . $fileName;
+			$destinationPath = 'downloads/' . basename($fileName);
 			
+			// Attempt to move the uploaded file to the destination directory
 			if (move_uploaded_file($fileTmpPath, $destinationPath)) {
 				$data .= ", file='$destinationPath'";
 			} else {
 				error_log("Failed to move uploaded file to $destinationPath");
-				return 0;
+				echo json_encode(['status' => 0, 'message' => 'Failed to move uploaded file']);
+				return;
 			}
+		} else if (isset($_FILES['file']) && $_FILES['file']['error'] != UPLOAD_ERR_NO_FILE) {
+			error_log("File upload error: " . $_FILES['file']['error']);
+			echo json_encode(['status' => 0, 'message' => 'File upload error']);
+			return;
 		}
-	
-		// Save data to the database
-		if(empty($id)){
+		
+		// Determine if the operation is an insert or update
+		if (empty($id)) {
 			$query = "INSERT INTO meetings SET $data";
-		}else{
-			$id = $conn->real_escape_string($id);
+		} else {
 			$query = "UPDATE meetings SET $data WHERE id = $id";
 		}
 	
-		$save = $conn->query($query);
-	
-		// Debugging: Check for query errors
-		if(!$save) {
+		// Execute the query
+		if ($conn->query($query)) {
+			echo json_encode(['status' => 1, 'message' => 'Meeting successfully saved']);
+		} else {
 			error_log("Database Query Error: " . $conn->error);
-			error_log("Query: " . $query);
-			return 0;
+			echo json_encode(['status' => 0, 'message' => 'An error occurred while saving data']);
 		}
-	
-		return 1;
 	}
-	
 	
 	
 	function delete_meeting(){
@@ -269,8 +266,6 @@ Class Action {
 		$location = isset($_POST['location']) ? $_POST['location'] : '';
 		$time = isset($_POST['time']) ? $_POST['time'] : '';
 		$attendees = isset($_POST['attendees']) ? $_POST['attendees'] : [];
-		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : [];
-
 		$id = isset($_POST['id']) ? $_POST['id'] : null;
 	
 		// Sanitize and prepare each field for the query
@@ -278,8 +273,7 @@ Class Action {
 		$date = $this->db->real_escape_string($date);
 		$location = $this->db->real_escape_string($location);
 		$time = $this->db->real_escape_string($time);
-		$agenda= $this->db->real_escape_string($agenda);
-
+	
 		// Process attendees: Convert array to a comma-separated string
 		if (is_array($attendees)) {
 			$attendees = array_map([$this->db, 'real_escape_string'], $attendees);
@@ -289,7 +283,7 @@ Class Action {
 		}
 	
 		// Construct the data string for the query
-		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees',agenda = '$agenda'";
+		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees'";
 	
 		// Handle file upload if exists
 		if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {

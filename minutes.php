@@ -30,7 +30,7 @@ include 'db_connect.php';
                     </thead>
                     <tbody>
                         <?php
-                        $users = $conn->query("SELECT * FROM minutes");
+                        $users = $conn->query("SELECT * FROM minutes ORDER BY date DESC, time DESC");
                         $i = 1;
                         while ($row = $users->fetch_assoc()):
                         ?>
