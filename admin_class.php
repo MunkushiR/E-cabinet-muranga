@@ -266,6 +266,7 @@ Class Action {
 		$location = isset($_POST['location']) ? $_POST['location'] : '';
 		$time = isset($_POST['time']) ? $_POST['time'] : '';
 		$attendees = isset($_POST['attendees']) ? $_POST['attendees'] : [];
+		$agenda = isset($_POST['agenda']) ? $_POST['agenda'] : ''; // New agenda field
 		$id = isset($_POST['id']) ? $_POST['id'] : null;
 	
 		// Sanitize and prepare each field for the query
@@ -273,6 +274,7 @@ Class Action {
 		$date = $this->db->real_escape_string($date);
 		$location = $this->db->real_escape_string($location);
 		$time = $this->db->real_escape_string($time);
+		$agenda = $this->db->real_escape_string($agenda); // Sanitize agenda field
 	
 		// Process attendees: Convert array to a comma-separated string
 		if (is_array($attendees)) {
@@ -283,7 +285,7 @@ Class Action {
 		}
 	
 		// Construct the data string for the query
-		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees'";
+		$data = "type = '$type', date = '$date', location = '$location', time = '$time', attendees = '$attendees', agenda = '$agenda'"; // Include agenda field
 	
 		// Handle file upload if exists
 		if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -319,6 +321,7 @@ Class Action {
 			return 0;
 		}
 	}
+	
 	
 	function delete_minutes(){
 		extract($_POST);

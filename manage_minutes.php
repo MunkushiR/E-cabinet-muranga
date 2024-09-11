@@ -67,7 +67,7 @@ if(isset($_GET['id'])){
             <label for="file">Upload File:</label>
             <input type="file" name="file" id="file" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+    
     </form>
 </div>
 <script>
