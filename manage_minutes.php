@@ -47,15 +47,14 @@ if(isset($_GET['id'])){
         <div class="form-group">
             <label>Location</label>
             <input type="text" name="location" id="location" class="form-control" value="<?php echo isset($meta['location']) ? htmlspecialchars($meta['location']) : '' ?>" required>
-        </div>
-        <div class="form-group">
-            <label for="attendees">Those to attend</label>
-            <select class="custom-select browser-default select2" name="attendees[]" id="attendees" multiple required>
+            <div class="form-group">
+            <label for="attendees" class="control-label">Those to attend</label>
+            <select class="custom-select browser-default select2" name="attendees[]" id="attendees" multiple>
                 <?php
-                $positions = $conn->query("SELECT DISTINCT position FROM employees ORDER BY position ASC");
-                while ($positionRow = $positions->fetch_assoc()) {
-                    $selected = (isset($meta['attendees']) && in_array($positionRow['position'], explode(', ', $meta['attendees']))) ? 'selected' : '';
-                    echo "<option value='{$positionRow['position']}' $selected>{$positionRow['position']}</option>";
+                $types = $conn->query("SELECT DISTINCT name FROM members ORDER BY name ASC");
+                while ($typeRow = $types->fetch_assoc()) {
+                    $selected = (isset($meta['attendees']) && is_array($meta['attendees']) && in_array($typeRow['name'], $meta['attendees'])) ? 'selected' : '';
+                    echo "<option value='{$typeRow['name']}' $selected>{$typeRow['name']}</option>";
                 }
                 ?>
             </select>
