@@ -30,7 +30,8 @@ if(isset($_GET['id'])){
             <label for="type" class="control-label">Meeting Type</label>
             <select class="custom-select browser-default select2" name="type" id="type">
                 <?php
-                $types = $conn->query("SELECT DISTINCT name FROM department ORDER BY name ASC");
+                $types = $conn->query("SELECT DISTINCT name FROM department ORDER BY date DESC, time DESC");
+
                 while ($typeRow = $types->fetch_assoc()) {
                     $selected = (isset($meta['type']) && $meta['type'] == $typeRow['name']) ? 'selected' : '';
                     echo "<option value='{$typeRow['name']}' $selected>{$typeRow['name']}</option>";
