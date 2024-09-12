@@ -208,14 +208,13 @@ if ($canUploadAndView > 0) {
                 // Modify the View link to open in a new tab for inline viewing
                 echo "<a href='view.php?id=".$row['id']."' target='_blank' class='btn btn-primary'>download</a> ";
                 
-                // Modify the Download link to initiate a direct download
                 
                 // Add a Delete link to delete the document
                 echo "<a href='delete.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\");'>Delete</a>"; // New Delete Button
                 echo "</td>";
                 echo "</tr>";
         
-                // Increment displayId for the next row
+           
                 $displayId++;
             }
         } else {
