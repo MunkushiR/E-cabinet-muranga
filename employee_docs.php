@@ -5,6 +5,13 @@ ini_set('display_errors', 1);
 
 include('db_connect.php');
 
+// Start the session and ensure the user is logged in
+
+if (!isset($_SESSION['personal_number'])) {
+    header('Location: login.php'); // Redirect to login if not logged in
+    exit();
+}
+
 // Get the current user's position from the employees table
 $currentUserId = $_SESSION['personal_number'];
 $positionQuery = $conn->prepare("SELECT position FROM employees WHERE personal_number = ?");
@@ -23,26 +30,27 @@ $currentPosition = $positionRow['position'];
 $positionResult->free();
 $positionQuery->close();
 
-// Check if the user can upload documents: their name in the members table must match their position and department_id must be 1
-$uploadPermissionQuery = $conn->prepare("SELECT COUNT(*) FROM members WHERE name = ? AND department_id = 1");
+// Check if the user can upload and delete documents
+$uploadDeletePermissionQuery = $conn->prepare("SELECT COUNT(*) FROM members WHERE name = ? AND department_id = 1");
 
-if (!$uploadPermissionQuery) {
-    die("Error in upload permission query: " . $conn->error);
+if (!$uploadDeletePermissionQuery) {
+    die("Error in upload/delete permission query: " . $conn->error);
 }
 
-$uploadPermissionQuery->bind_param("s", $currentPosition);
-$uploadPermissionQuery->execute();
-$uploadPermissionQuery->bind_result($canUploadAndView);
-$uploadPermissionQuery->fetch();
-$uploadPermissionQuery->close();
+$uploadDeletePermissionQuery->bind_param("s", $currentPosition);
+$uploadDeletePermissionQuery->execute();
+$uploadDeletePermissionQuery->bind_result($canUploadAndDelete);
+$uploadDeletePermissionQuery->fetch();
+$uploadDeletePermissionQuery->close();
 
 // Handle document deletion
-if (isset($_GET['delete_id'])) {
+if ($canUploadAndDelete > 0 && isset($_GET['delete_id'])) {
     $deleteId = intval($_GET['delete_id']);
     
     // Retrieve the document path before deletion
-    $deletePathQuery = $conn->prepare("SELECT path FROM documents WHERE id = ?");
-    $deletePathQuery->bind_param("i", $deleteId);
+    $deletePathQuery = $conn->prepare("SELECT path FROM documents WHERE id = ? AND JSON_CONTAINS(viewer_position, ?)");
+    $currentPositionJson = json_encode($currentPosition); // Convert position to JSON format
+    $deletePathQuery->bind_param("is", $deleteId, $currentPositionJson);
     $deletePathQuery->execute();
     $deletePathResult = $deletePathQuery->get_result();
     $deleteRow = $deletePathResult->fetch_assoc();
@@ -64,7 +72,7 @@ if (isset($_GET['delete_id'])) {
         }
         $deleteQuery->close();
     } else {
-        $message = "Document not found.";
+        $message = "Document not found or you do not have permission to delete it.";
     }
     $deletePathQuery->close();
 
@@ -77,7 +85,7 @@ if (isset($_GET['delete_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload']) && isset($_POST['viewer_position'])) {
     $viewerPositions = $_POST['viewer_position']; // Array of selected viewer positions
 
-    if ($canUploadAndView > 0 && !empty($viewerPositions) && isset($_FILES['document']) && $_FILES['document']['error'] === UPLOAD_ERR_OK) {
+    if ($canUploadAndDelete > 0 && !empty($viewerPositions) && isset($_FILES['document']) && $_FILES['document']['error'] === UPLOAD_ERR_OK) {
         $documentName = $_FILES['document']['name'];
         $uploadDir = 'uploads/';
         
@@ -112,16 +120,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload']) && isset($_
 }
 
 // Prepare document query based on user permissions
-if ($canUploadAndView > 0) {
-    // If the user can upload, they can view all documents
+$documentsResult = null;
+if ($canUploadAndDelete > 0) {
+    // If the user can upload and delete, they can view all documents
     $documentsQuery = $conn->query("SELECT * FROM documents");
     if ($documentsQuery) {
         $documentsResult = $documentsQuery;
     }
 } else {
-    // If the user can't upload, show documents where viewer_position matches the current position
+    // If the user can't upload/delete, show documents where viewer_position matches the current position
     $documentsQuery = $conn->prepare("SELECT * FROM documents WHERE JSON_CONTAINS(viewer_position, ?)");
-
     if ($documentsQuery) {
         $currentPositionJson = json_encode($currentPosition); // Convert the current position to JSON format
         $documentsQuery->bind_param("s", $currentPositionJson);
@@ -151,7 +159,7 @@ if ($canUploadAndView > 0) {
     <?php endif; ?>
 
     <!-- Restrict the upload form to users who have permission -->
-    <?php if ($canUploadAndView > 0): ?>
+    <?php if ($canUploadAndDelete > 0): ?>
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="viewer_position">Select Members to View Document</label>
@@ -206,16 +214,16 @@ if ($canUploadAndView > 0) {
                 echo "<td>";
                 
                 // Modify the View link to open in a new tab for inline viewing
-                echo "<a href='view.php?id=".$row['id']."' target='_blank' class='btn btn-primary'>download</a> ";
+                echo "<a href='view.php?id=".$row['id']."' target='_blank' class='btn btn-primary'>View</a> ";
                 
-                
-                // Add a Delete link to delete the document
-                echo "<a href='delete.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\");'>Delete</a>"; // New Delete Button
+                // Display the Delete link only if the user has upload/delete permissions
+                if ($canUploadAndDelete > 0) {
+                    echo "<a href='delete.php?id=".$row['id']."' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this document?\");'>Delete</a>"; // New Delete Button
+                }
                 echo "</td>";
                 echo "</tr>";
-        
-           
-                $displayId++;
+
+                $displayId++; // Increment the display ID for each row
             }
         } else {
             echo "<tr><td colspan='5'>No documents found.</td></tr>";
@@ -224,14 +232,5 @@ if ($canUploadAndView > 0) {
         </tbody>
     </table>
 </div>
-<script>
-        $(document).ready(function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('message')) {
-                const message = urlParams.get('message');
-                alert(message); // Show success message in popup
-            }
-        });
-    </script>
 </body>
 </html>

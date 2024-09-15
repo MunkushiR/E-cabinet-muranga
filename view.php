@@ -15,16 +15,7 @@ if ($conn->connect_error) {
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']); // Sanitize the input to prevent SQL injection
 
-    // First, update viewer_position to remove restriction (e.g., setting it to null or an empty value)
-    $updateSql = "UPDATE documents SET viewer_position = '' WHERE id = ?";
-    $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("i", $id);
-    if (!$updateStmt->execute()) {
-        die("Failed to remove restriction: " . $updateStmt->error);
-    }
-    $updateStmt->close();
-
-    // Retrieve the document details after updating the viewer_position
+    // Retrieve the document details without modifying the viewer_position
     $sql = "SELECT * FROM documents WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
